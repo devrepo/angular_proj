@@ -1,0 +1,27 @@
+<div class="row page-header">
+    <div class="col-xs-4 col-xs-offset-4 text-center">
+        <p>Hi {{userName}}  <a href="#/logout">Logout</a></p>
+    </div>
+</div>
+<div class="row ">
+    <div class="col-xs-4 col-xs-offset-4">
+        <div class="quiz-content">
+            <p class="centered" ng-show="!htmlStem">
+                <strong>{{currentIndex}}. {{currentQuestion.stem}}</strong>
+            </p>
+            <p class="centered" ng-show="htmlStem">
+                <strong>{{currentIndex}}. </strong><span class="text-left" ng-bind-html="currentQuestion.stem"></span>
+            </p>
+        </div>
+        <form class="well quiz-content">
+                <div class="radio" ng-repeat="option in options" ng-show="{{type === 'mcq'}}">
+                    <label><input type="radio" name="userAnswer" value="option" ng-click="setUserAnswerMcq(option)" ng-checked="setChecked(option)">  {{option}}</label>
+                </div>
+                <div class="form-group" ng-repeat="answer in currentQuestion.correctAnswer" ng-show="{{type === 'fib'}}">
+                    <label>Answer {{$index+1}}:</label>
+                    <input type="text" name="answer{{$index+1}}" ng-value="setAnswer($index)" ng-blur="setUserAnswerFib($index)">
+                </div>
+            <button type="submit" class="btn btn-lg btn-primary btn-block shift-btn" ng-click="nextQuestion()">Continue</button>
+        </form>
+    </div>
+</div>

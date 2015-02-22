@@ -1,0 +1,52 @@
+<div class="row page-header">
+    <div class="col-xs-4 col-xs-offset-4 text-center">
+        <p>Hi {{userName}}  <a href="#/logout">Logout</a></p>
+    </div>
+</div>
+<div class="row ">
+    <div class="col-xs-4 col-xs-offset-4">
+        <div class="result-content">
+            <h1 class="centered">You Scored {{totalScore | number:0}}%</h1>
+        </div>
+        <div class="result-content" ng-repeat="question in questions">
+            <p class="centered" ng-show="{{!question.htmlStem}}">
+                <strong>{{$index+1}}. {{question.stem}}</strong>
+            </p>
+            <p class="centered" ng-show="{{question.htmlStem}}">
+                <strong>{{$index+1}}. </strong><span class="text-left" ng-bind-html="question.stem"></span>
+            </p>
+            <div class="bg bg-success" ng-hide="!type[$index]">
+                <p><strong>Correct</strong></p>
+                <div ng-show="{{question.type === 'mcq'}}">
+                    <ol type="A" start="{{question.correctAnswer}}">
+                         <li> {{question.options[question.correctAnswer-1]}}</li>
+                    </ol>
+                </div>
+                <div ng-show="{{question.type === 'fib'}}">
+                    <p>{{getCorrectFibAnswer($index)}}</p>
+                </div>
+            </div>
+            <div class="bg bg-danger" ng-hide="type[$index]">
+                <p><strong>You answered incorrect</strong></p>
+                <div ng-show="{{question.type === 'mcq'}}">
+                    <ol type="A" start="{{question.correctAnswer}}">
+                        <li> {{userAnswers[$index]}}</li>
+                    </ol>
+                </div>
+                <div ng-show="{{question.type === 'fib'}}">
+                    <p>{{userAnswers[$index].join(", ")}}</p>
+                </div>
+
+                <p><strong>Correct Answer</strong></p>
+                <div ng-show="{{question.type === 'mcq'}}">
+                    <ol type="A" start="{{question.correctAnswer}}">
+                        <li> {{question.options[question.correctAnswer-1]}}</li>
+                    </ol>
+                </div>
+                <div ng-show="{{question.type === 'fib'}}">
+                    <p>{{getCorrectFibAnswer($index)}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
