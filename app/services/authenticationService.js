@@ -19,6 +19,7 @@ angular.module("authenticationService", ['ngCookies']).
             },
             _setCredentials = function(userName, password){
                 var credential = {userName:userName, password:password};
+                if (!_credentials) _credentials = [];
                 _credentials.push(credential);
                 $cookies.quiz_credentials = angular.toJson(_credentials);
             },
